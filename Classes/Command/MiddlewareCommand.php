@@ -119,7 +119,7 @@ class MiddlewareCommand extends Command
                 $default
             );
 
-            if (in_array($identifier, $this->middlewareStackResolver->resolve($stack), true)) {
+            if (in_array($identifier, (array)$this->middlewareStackResolver->resolve($stack), true)) {
                 $commandContext->getIo()->warning(sprintf('The identifier "%s" already exists in the configuration!', $identifier));
                 $default = $identifier;
                 continue;
@@ -145,7 +145,7 @@ class MiddlewareCommand extends Command
      */
     private function askForBeforeAfter(SymfonyStyle $io, string $stack, string $location): array
     {
-        $entries = array_keys($this->middlewareStackResolver->resolve($stack) ?? []);
+        $entries = array_keys((array)($this->middlewareStackResolver->resolve($stack) ?? []));
 
         array_unshift($entries, 'none');
 
